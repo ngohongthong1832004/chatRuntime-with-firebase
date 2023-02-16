@@ -7,15 +7,15 @@ function App() {
 
   const [dataFireBase , setDataFireBase] = useState([])
 
-  useEffect(() => {
-    onValue(ref(database, "message"), data => {
-      const arr = []
-      data.forEach((item) => {
-        arr.push(item.val())
-      })
-      console.log(arr)
-    })
-  }, [])
+  // useEffect(() => {
+  //   onValue(ref(database, "message"), data => {
+  //     const arr = []
+  //     data.forEach((item) => {
+  //       arr.push(item.val())
+  //     })
+  //     console.log(arr)
+  //   })
+  // }, [])
 
   
   console.log(dataFireBase)
