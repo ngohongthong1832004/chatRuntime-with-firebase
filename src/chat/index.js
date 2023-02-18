@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { database, ref, push, onValue } from "../firebase";
+import { database, ref, push, onValue, signOut, auth, provider } from "../firebase";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
@@ -21,6 +21,14 @@ function ChatBox() {
       });
     }, []);
   
+    const handleClickLogOut = () => {
+      signOut(auth).then(() => {
+        navigate('/')
+      }).catch((error) => {
+        // An error happened.
+      });
+    }
+
     const handleSendMessage = () => {
       push(ref(database, "message"), {
         name: "Anonymous",
@@ -36,6 +44,7 @@ function ChatBox() {
     console.log("dataFireBase : ", dataFireBase);
   return (
     <div>
+      <button onClick={handleClickLogOut}>Log Out</button>
       <h2> ChatRunTime</h2>
       <ul>
         {dataFireBase.map((message, index) => {

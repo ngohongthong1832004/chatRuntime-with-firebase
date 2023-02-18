@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, push, ref, onValue } from 'firebase/database'
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, GithubAuthProvider ,FacebookAuthProvider   } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC1ATkfWIyhIakBsQHTyGBnRI3raXvR8-A",
@@ -15,5 +16,41 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
+const auth = getAuth();
+const provider = new GoogleAuthProvider()
+const providerGithub = new GithubAuthProvider()
+const providerFacebook = new FacebookAuthProvider()
 
-export { database, ref, push, onValue }
+auth.languageCode = 'it';
+
+provider.setCustomParameters({
+  'login_hint': 'user@example.com'
+});
+
+
+providerGithub.addScope('repo');
+providerGithub.setCustomParameters({
+  'allow_signup': 'false'
+});
+
+
+providerFacebook.addScope('user_birthday');
+providerFacebook.setCustomParameters({
+  'display': 'popup'
+});
+
+export { 
+  database,
+  ref,
+  push,
+  onValue,
+  auth,
+  provider,
+  signInWithPopup,
+  GoogleAuthProvider,
+  providerGithub ,
+  signOut ,
+  GithubAuthProvider ,
+  FacebookAuthProvider,
+  providerFacebook,
+}
