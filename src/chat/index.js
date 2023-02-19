@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { database, ref, push, onValue, signOut, auth, provider } from "../firebase";
 import moment from "moment";
 import { useNavigate } from "react-router-dom";
+import { userState } from "../store/selector";
+import { useSelector, useDispatch } from "react-redux";
 
 
 function ChatBox() {
@@ -9,7 +11,9 @@ function ChatBox() {
     const [valueMess, setValueMess] = useState("");
     const [dataFireBase, setDataFireBase] = useState([]);
     const inputRef = useRef();
-  
+    
+    const userInfo = useSelector(userState)
+    console.log("userInfo :",userInfo)
     useEffect(() => {
       onValue(ref(database, "message"), (data) => {
         console.log("data :", data);
@@ -31,7 +35,7 @@ function ChatBox() {
 
     const handleSendMessage = () => {
       push(ref(database, "message"), {
-        name: "Anonymous",
+        name: userInfo.name,
         text: valueMess,
         createAt: moment(Date.now()).format("dddd, MMMM Do YYYY, h:mm:ss a"),
       });

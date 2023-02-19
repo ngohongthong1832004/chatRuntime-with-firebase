@@ -1,11 +1,10 @@
-import { configureStore } from '@reduxjs/toolkit'
-import { authenticationSlice } from './authenticationSlice'
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { authenticationSlice } from "./authenticationSlice";
 
-const store  = configureStore({
-    reducer : {
-        authentication : authenticationSlice.reducer,
-    }
-})
+const store = configureStore({
+  reducer: {
+    authentication: authenticationSlice.reducer,
+  },
+});
 
-
-export default store
+export default store;

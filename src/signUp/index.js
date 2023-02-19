@@ -6,12 +6,16 @@ import {
 } from '@ant-design/icons';
 import  {Link} from "react-router-dom"
 import styles from './SignUp.module.scss';
+import { auth, createUserWithEmailAndPassword  } from '../firebase';
 
 const cx = classNames.bind(styles);
 
 function SignUp() {
     const[eye,setEye] = useState(true)
     const[eye1,setEye1] = useState(true)
+    const [emailValue, setEmailValue] = useState('')
+    const [passValue, setPassValue] = useState('')
+    const [confirmPass, setConfirmPass] = useState("")
 
     const  handleShowEye = ()=>{
         const inputPasswordEl = document.querySelector('.password')
@@ -31,6 +35,20 @@ function SignUp() {
         }
         setEye1(pre=>pre = !pre)
     }
+
+    const handleCreateAccountWithEmailAndPass = async() => {
+        const rs  = await createUserWithEmailAndPassword(auth, emailValue, passValue)
+        const user = rs.user
+        console.log("user : ", user)
+    }
+    const handleClickCreateAccount =(e) => {
+        e.preventDefault()
+        if((confirmPass === passValue) && (passValue !== '')) handleCreateAccountWithEmailAndPass()
+    }
+
+    console.log("email : ", emailValue)
+    console.log("pass : ", passValue)
+    console.log("confirm Pass : ", confirmPass)
     return (
         <div className={cx('wrapper', 'container-fluid')}>
             <div className={cx('form')}>
@@ -42,23 +60,23 @@ function SignUp() {
                         <div className={cx('wrapper-input')}>
                                 <div className = {cx('form-group')}>
                                     <label className={cx('label')}>Gmail :</label>
-                                    <input className={cx('input')} name = 'gmail' type={'text'} placeholder={'Your Gmail...'} />
+                                    <input value={emailValue} onChange = {(e) => setEmailValue(e.target.value)} className={cx('input')} name = 'gmail' type={'text'} placeholder={'Your Gmail...'} required/>
                                 </div>
                                 <p></p>
                                 <div className = {cx('form-group')}>
                                     <label className={cx('label')}>Password :</label>
-                                    <input className={cx('input','password1')} name = 'pass1' type={'password'} placeholder={'Your password...'} />
+                                    <input value={passValue} onChange = {(e) => setPassValue(e.target.value)} className={cx('input','password1')} name = 'pass1' type={'password'} placeholder={'Your password...'} required/>
                                 {!eye1 ?<span onClick={handleShowEye1} className={cx('eye')}><EyeInvisibleOutlined /></span>: <span onClick={handleShowEye1} className={cx('eye')}><EyeOutlined /></span>}
                                 </div>
                                 <p></p>
                                 <div className = {cx('form-group')}>
                                     <label className={cx('label')}>Password Again :</label>
-                                    <input className={cx('input','password')} name = 'pass2' type={'password'} placeholder={'Your password again...'} />
+                                    <input value={confirmPass} onChange = {(e) => setConfirmPass(e.target.value)} className={cx('input','password')} name = 'pass2' type={'password'} placeholder={'Your password again...'} required/>
                                 {!eye ?<span onClick={handleShowEye} className={cx('eye')}><EyeInvisibleOutlined /></span>: <span onClick={handleShowEye} className={cx('eye')}><EyeOutlined /></span>}
                                 </div>
                         </div>
                         <div className={cx('wrapper-btn')}>
-                            <button className={cx('btn')}>Create Account</button>
+                            <button className={cx('btn')} onClick = {handleClickCreateAccount}>Create Account</button>
                         </div>
                     </form>
                 </div>

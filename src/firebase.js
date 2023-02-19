@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, push, ref, onValue } from 'firebase/database'
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, GithubAuthProvider ,FacebookAuthProvider   } from "firebase/auth";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, GithubAuthProvider ,FacebookAuthProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword     } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyC1ATkfWIyhIakBsQHTyGBnRI3raXvR8-A",
@@ -53,4 +53,6 @@ export {
   GithubAuthProvider ,
   FacebookAuthProvider,
   providerFacebook,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword 
 }
