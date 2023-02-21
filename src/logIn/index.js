@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { EyeOutlined, EyeInvisibleOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { userState } from "../store/selector";
@@ -10,63 +10,84 @@ import {
   signInWithPopup,
   provider,
   GoogleAuthProvider,
-  GithubAuthProvider,
-  providerGithub,
-  providerFacebook,
-  FacebookAuthProvider,
-  signInWithEmailAndPassword,
+  // GithubAuthProvider,
+  // providerGithub,
+  // providerFacebook,
+  // FacebookAuthProvider,
+  // signInWithEmailAndPassword,
 } from "../firebase";
-import { handleLoginGoogle } from '../store/authenticationSlice'
+import { handleLoginGoogle, handleLoginEmailPass, fixErrEmailPass } from '../store/authenticationSlice'
 
 const cx = classNames.bind(styles);
 
 function Login() {
-    const history = useNavigate();
+  const history = useNavigate();
   const emailRef = useRef();
   const passRef = useRef();
-  const loginGoogle = async () => {
-    const result = await signInWithPopup(auth, provider);
-    try {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = await GoogleAuthProvider.credentialFromResult(result);
-      console.log("credential :", credential);
+  const dispatch = useDispatch();
+  const [valueInfoUser, setValueInfoUser] = useState({
+    email: "",
+    pass: "",
+  });
 
-      // The signed-in user info.
-      const token = await credential.accessToken;
-      console.log("token : ", token);
+  const [eye, setEye] = useState(true);
 
-      // IdP data available using getAdditionalUserInfo(result)
-      const user = await result.user;
-      console.log("user :", user);
-    } catch (error) {
-      const errorCode = error.code;
-      console.log("errorCode :", errorCode);
-      const errorMessage = error.message;
-      console.log("errorMessage : ", errorMessage);
-      const email = error.customData.email;
-      const credential = GoogleAuthProvider.credentialFromError(error);
+  const user = useSelector(userState);
+
+  // console.log("user  test err reject: ", user)
+  useEffect(()=> {
+    if(user.err){
+      alert('Email or password is not invalid')
     }
-  };
+  },[user.err])
+
+  useEffect(() => {
+    dispatch(fixErrEmailPass(false))
+  }, [valueInfoUser])
+
+  // const loginGoogle = async () => {
+  //   const result = await signInWithPopup(auth, provider);
+  //   try {
+  //     // This gives you a Google Access Token. You can use it to access the Google API.
+  //     const credential = await GoogleAuthProvider.credentialFromResult(result);
+      // console.log("credential :", credential);
+
+  //     // The signed-in user info.
+  //     const token = await credential.accessToken;
+      // console.log("token : ", token);
+
+  //     // IdP data available using getAdditionalUserInfo(result)
+  //     const user = await result.user;
+      // console.log("user :", user);
+  //   } catch (error) {
+  //     const errorCode = error.code;
+      // console.log("errorCode :", errorCode);
+  //     const errorMessage = error.message;
+      // console.log("errorMessage : ", errorMessage);
+  //     const email = error.customData.email;
+  //     const credential = GoogleAuthProvider.credentialFromError(error);
+  //   }
+  // };
 
   //   const loginFacebook = async () => {
   //     const result = await signInWithPopup(auth, providerFacebook);
   //     try {
   //       // This gives you a Google Access Token. You can use it to access the Google API.
   //       const credential = await GithubAuthProvider.credentialFromResult(result);
-  //       console.log("credential :", credential);
+        // console.log("credential :", credential);
 
   //       // The signed-in user info.
   //       const token = await credential.accessToken;
-  //       console.log("token : ", token);
+        // console.log("token : ", token);
 
   //       // IdP data available using getAdditionalUserInfo(result)
   //       const user = await result.user;
-  //       console.log("user :", user);
+        // console.log("user :", user);
   //     } catch (error) {
   //       const errorCode = error.code;
-  //       console.log("errorCode :", errorCode);
+        // console.log("errorCode :", errorCode);
   //       const errorMessage = error.message;
-  //       console.log("errorMessage : ", errorMessage);
+        // console.log("errorMessage : ", errorMessage);
   //       const email = error.customData.email;
   //       const credential = GithubAuthProvider.credentialFromError(error);
   //     }
@@ -78,65 +99,24 @@ function Login() {
   //       const credential = await FacebookAuthProvider.credentialFromResult(
   //         result
   //       );
-  //       console.log("credential :", credential);
+        // console.log("credential :", credential);
 
   //       // The signed-in user info.
   //       const token = await credential.accessToken;
-  //       console.log("token : ", token);
+        // console.log("token : ", token);
 
   //       // IdP data available using getAdditionalUserInfo(result)
   //       const user = await result.user;
-  //       console.log("user :", user);
+        // console.log("user :", user);
   //     } catch (error) {
   //       const errorCode = error.code;
-  //       console.log("errorCode :", errorCode);
+        // console.log("errorCode :", errorCode);
   //       const errorMessage = error.message;
-  //       console.log("errorMessage : ", errorMessage);
+        // console.log("errorMessage : ", errorMessage);
   //       const email = error.customData.email;
   //       const credential = FacebookAuthProvider.credentialFromError(error);
   //     }
   //   };
-
-  const loginEmailPass = async () => {
-    const rs = await signInWithEmailAndPassword(
-      auth,
-      valueInfoUser.email,
-      valueInfoUser.pass
-    );
-    try {
-      const user = await rs.user;
-      console.log("userEmailPass :", user);
-    } catch (error) {
-      const user = rs.user;
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(
-        "[userError, errorCode, errorMessage]",
-        user,
-        errorCode,
-        errorMessage
-      );
-    }
-    //   .then((userCredential) => {
-    //     // Signed in
-    //     const user = userCredential.user;
-    //     // ...
-    //   })
-    //   .catch((error) => {
-    //     const errorCode = error.code;
-    //     const errorMessage = error.message;
-    //   });
-  };
-
-  const dispatch = useDispatch();
-  const [valueInfoUser, setValueInfoUser] = useState({
-    email: "",
-    pass: "",
-  });
-
-  const [eye, setEye] = useState(true);
-
-  const user = useSelector(userState);
 
   const handleClickLoginGoogle = async() => {
       const rs = await dispatch(handleLoginGoogle('data'))
@@ -161,15 +141,18 @@ function Login() {
 
   
 
-  const handleSignup = (e) => {
+  const handleLogin =async (e) => {
     e.preventDefault();
-    loginEmailPass();
-    setValueInfoUser({ ...valueInfoUser, email: "", pass: "" });
-    emailRef.current.focus();
-    // history("/chatbox");
+    if(valueInfoUser.name !== "Anonymous" && valueInfoUser.pass !== "" ){
+      const rs = await dispatch(handleLoginEmailPass(valueInfoUser))
+      history('/chatbox')
+      // setValueInfoUser({ ...valueInfoUser, email: "", pass: "" });
+    }else {
+      alert("Chua nhap gi kia cha noi !!")
+    }
   };
 
-  //   console.log("uservalue : ", user);
+
   return (
     <div className={cx("wrapper", "container-fluid")}>
       <div className={cx("form")}>
@@ -178,7 +161,7 @@ function Login() {
           <form action="/" method="get">
             <div className={cx("wrapper-input")}>
               <div className={cx("form-group")}>
-                <label className={cx("label")}>Gmail:</label>
+                <label className={cx("label")} style={{paddingRight : '35px'}}>Gmail:</label>
                 <input
                   ref={emailRef}
                   value={valueInfoUser.email}
@@ -195,7 +178,7 @@ function Login() {
                   required
                 />
               </div>
-              <p></p>
+              { user.err ? <p style={{ fontSize : '12px', color : 'red'}}>Email or password is not invalid !!</p> :  <p></p> }
               <div className={cx("form-group")}>
                 <label className={cx("label")}>Password:</label>
                 <input
@@ -223,15 +206,16 @@ function Login() {
             </div>
             <p className={cx("forgot")}>Forgot password ?</p>
             <div className={cx("wrapper-btn")}>
-              <button className={cx("btn")} onClick={handleSignup}>
+              <button className={cx("btn")} onClick={handleLogin}>
                 Log In
               </button>
             </div>
           </form>
+
           <div className={cx("deco")}>
-            <span>--------------------------</span>
+            <span>---------------------</span>
             <span> OR </span>
-            <span>--------------------------</span>
+            <span>---------------------</span>
           </div>
         </div>
         <div className={cx("icon-link")}>
