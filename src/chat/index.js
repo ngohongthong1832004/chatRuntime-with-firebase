@@ -74,9 +74,9 @@ function ChatBox() {
     <div>
       <div
         style={{
-          position: "fixed",
-          top: "0",
-          right: "0",
+          // position: "fixed",
+          // top: "0",
+          // right: "0",
           width: "100vw",
           height: "40px",
           display: "flex",
