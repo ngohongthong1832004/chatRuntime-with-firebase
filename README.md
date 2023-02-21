@@ -1,5 +1,7 @@
 This app is  realtime chat
+
 FE : React (fc component) - Redux - Sass - many <3 <3 <3
+
 BE : Firebase - ( axios request )
 
 Feature : 
