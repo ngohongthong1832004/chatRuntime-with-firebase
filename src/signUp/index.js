@@ -92,19 +92,19 @@ function SignUp() {
                                     <label className={cx('label')}>Gmail :</label>
                                     <input value={emailValue} onChange = {(e) =>{ setEmailValue(e.target.value) ; setEmailErr(false)}} className={cx('input')} name = 'gmail' type={'text'} placeholder={'Your Gmail...'} required/>
                                 </div>
-                                    {emailErr  ? <p style={{ fontSize : '12px', color : 'red', marginTop : '-1px', marginRight : '15px'}}>Your email is invalid !!</p> : <p></p>}
+                                    {emailErr  ? <p style={{ fontSize : '12px', color : 'blue', marginTop : '-1px', marginRight : '15px'}}>Your email is invalid !!</p> : <p></p>}
                                 <div className = {cx('form-group')}>
                                     <label className={cx('label')}>Password :</label>
                                     <input value={passValue} onChange = {(e) => {setPassValue(e.target.value) ; setPwdError(false) }} className={cx('input','password1')} name = 'pass1' type={'password'} placeholder={'Your password...'} required/>
                                     {!eye1 ?<span onClick={handleShowEye1} className={cx('eye')}><EyeInvisibleOutlined /></span>: <span onClick={handleShowEye1} className={cx('eye')}><EyeOutlined /></span>}
                                 </div>
-                                    {pwdError ? <p style={{ fontSize : '12px', color : 'red', marginTop : '-1px', marginRight : '-10px'}}>Your password is invalid !!</p> : <p style={{ fontSize : '12px', color : 'blue', marginRight : "-25px", marginTop : '-1px' }}>at least 6 cherater(1-9 & a-z)</p>}
+                                    {pwdError ? <p style={{ fontSize : '12px', color : 'blue', marginTop : '-1px', marginRight : '-10px'}}>Your password is invalid !!</p> : <p style={{ fontSize : '12px', color : 'blue', marginRight : "-25px", marginTop : '2px' }}>at least 6 cherater(1-9 & a-z)</p>}
                                 <div className = {cx('form-group')}>
-                                    <label className={cx('label')}>Password Again :</label>
+                                    <label className={cx('label')}>Confirm Pass :</label>
                                     <input value={confirmPass} onChange = {(e) =>{ setConfirmPass(e.target.value) ; setConfirmPassErr(false)}} className={cx('input','password')} name = 'pass2' type={'password'} placeholder={'Your password again...'} required/>
                                     {!eye ?<span onClick={handleShowEye} className={cx('eye')}><EyeInvisibleOutlined /></span>: <span onClick={handleShowEye} className={cx('eye')}><EyeOutlined /></span>}
                                 </div>
-                                    { confirmPassErr && <p style={{ fontSize : '12px', color : 'red', marginTop : '-1px', marginRight : '0'}}>Password is not match !!</p>}
+                                    { confirmPassErr && <p style={{ fontSize : '12px', color : 'blue', marginTop : '-1px', marginRight : '0'}}>Password is not match !!</p>}
                         </div>
                         <div className={cx('wrapper-btn')}>
                             <button className={cx('btn')} onClick = {handleClickCreateAccount}>Create Account</button>
@@ -113,7 +113,7 @@ function SignUp() {
                 </div>
                 <div className={cx('footer')}>
                     <span>Are you have an account ?</span>
-                    <Link to = {"/"}>
+                    <Link to = {"/"} style={{color : "blue"}}>
                         Login
                     </Link>
                 </div>

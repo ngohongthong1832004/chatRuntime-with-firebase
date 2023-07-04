@@ -53,6 +53,7 @@ function ChatBox() {
   };
 
   const handleSendMessage = () => {
+    if (valueMess === "") return;
     push(ref(database, "message"), {
       name: userInfo.name,
       text: valueMess,
@@ -102,19 +103,50 @@ function ChatBox() {
           Log Out
         </button>
       </div>
-      <h2>SuperCuIf Chat</h2>
+      <h2 style={{
+        textAlign : 'center',
+        marginTop : '20px',
+        fontWeight : '700',
+        fontSize : '40px',
+        color : 'black',
+        fontFamily : "'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif'",
+        padding : ' 0 10px',
+        borderBottom : '1px dashed black',
+        display : 'inline-block',
+      }}
+      >SuperCuIf Chat</h2>
       <div>
           <input
             ref={inputRef}
             value={valueMess}
             onChange={(e) => setValueMess(e.target.value)}
-            style = {{width: "250px", borderTopLeftRadius : '6px', borderBottomLeftRadius : "6px", fontSize : "13px", paddingLeft : '8px', outline : 'none'}}
+            placeholder="Enter your message"
+            style = {{width: "250px",
+            borderTopLeftRadius : '16px',
+            borderBottomLeftRadius : "16px",
+            fontSize : "13px",
+            paddingLeft : '12px',
+            outline : 'none',
+            height: "30px",
+            border : '1px solid black',
+            borderRight : 'none',
+          }}
           />
-          <button ref = {btnSendMess} style={{width : "120px",height : '100%' ,backgroundColor : 'black', color : 'white', borderTopRightRadius : '6px', borderBottomRightRadius : '6px'}} onClick={handleSendMessage}>Send Message</button>
+          <button ref = {btnSendMess} style={{
+          width : "120px",
+          backgroundColor : 'rgba(99, 99, 99, 0.7)',
+          color : 'white',
+          height: "34px",
+          fontSize : '13px',
+          borderTopRightRadius : '16px',
+          borderBottomRightRadius : '16px',
+          borderColor : 'transparent',
+          }} onClick={handleSendMessage}>Send Message</button>
         </div>
       <div
         style={{
           display: "flex",
+
           justifyContent: "center",
           alignContent: "center",
         }}
@@ -167,10 +199,12 @@ function ChatBox() {
                   style={{
                     display: "flex",
                     border: " 1px solid black ",
-                    borderRadius: "6px",
+                    borderRadius: "10px",
                     marginTop: "2px",
                     justifyContent: "flex-start",
-                    paddingLeft: "30px",
+                    padding: " 5px 5px",
+                    width: "100%",
+                    backgroundColor: "rgba(99, 99, 99, 0.3)",
                   }}
                 >
                   {message.text}

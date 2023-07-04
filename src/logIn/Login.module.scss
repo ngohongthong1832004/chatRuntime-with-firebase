@@ -8,8 +8,7 @@
     position: absolute;
     top: calc(50% - 200px);
     left: calc(50% - 200px);
-    width: 380px;
-    height: 400px;
+    width: 400px;
     border: 2px solid var(--primary);
     border-radius: 8px;
     display: flex; 
@@ -19,38 +18,47 @@
     background-color: 2px solid black;
 }
 .header{
-    padding: 3px;
+    padding: 15px 0;
     display: flex; 
     justify-content: center;
     align-items: center;
     width: 100%;
-    border-bottom: 2px solid var(--primary);
-    font-size: 28px;
+    border-bottom: 1px dashed black;
+    font-size: 35px;
     font-weight: 600;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-
+.wrapper-input {
+    margin: 0 10px;
+}
 .body{ 
     flex: 1;
-    padding-top: 10px;
+    padding:18px 10px;
 }
 .form-group{
     position: relative;
+    display: flex;
 }
 .label{
-    width: 100px;
-    padding:10px 10px 5px 10px;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 13px;
+    font-weight: 700;
+    width: 150px;
+    align-items: center;
 }
 .input{
     outline: none;
-    width: 260px;
+    width: 90%;
     padding: 0 6px;
-    border-radius: 6px;
-    border: 1px solid;
-    height: 20px;
+    border-radius: 10px;
+    border-color: transparent;
+    height: 30px;
+    box-shadow: none;
 }
 .eye{
     position: absolute;
-    top: 0px;
+    top: 6px;
     right: 20px;
     cursor: pointer;
 }
@@ -80,20 +88,15 @@
     justify-content: center;
 }
 .btn{
-    border-color: var(--black);
-    color: var(--black);
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 700;
     border-radius: 8px;
     height: 50px;
     width: 95%;
-    margin: 10px;
-    box-shadow: 1px 1px 1px rgba(99, 99, 99, 0.7) ;
+    margin:20px 10px;
+    box-shadow: 1px 1px 1px black ;
     &:hover{
-        color: var(--primary);
-        border-color:var(--primary) ;
-        box-shadow: none ;
-
+        background-color: rgba(197, 249, 253, 0.7);
     }
 }
 .listIcon{
@@ -106,17 +109,15 @@
     margin: 0;
 }
 .btn-icon{
-    background-color: var(--white);
-    color: var(--black);
-    width: 60%;
-    margin: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 8px;
     height: 30px;
-    border-radius: 5px;
-    border-color:var(--black) ;
-    box-shadow: 0.8px 0.8px 0.8px rgba(99, 99, 99, 0.7) ;
-
+    width: 60%;
+    margin:20px 10px;
+    box-shadow: 1px 1px 1px black ;
     &:hover{
-        color: var(--primary);
+        background-color: rgba(197, 249, 253, 0.7);
     }
 }
 .btn-icon:last-child{

@@ -17,6 +17,7 @@ import {
   // signInWithEmailAndPassword,
 } from "../firebase";
 import { handleLoginGoogle, handleLoginEmailPass, fixErrEmailPass } from '../store/authenticationSlice'
+import { toast } from "react-toastify";
 
 const cx = classNames.bind(styles);
 
@@ -37,7 +38,8 @@ function Login() {
   // console.log("user  test err reject: ", user)
   useEffect(()=> {
     if(user.err){
-      alert('Email or password is not invalid')
+      // alert('Email or password is not invalid')
+      toast.error('Email or password is not invalid')
     }
   },[user.err])
 
@@ -148,7 +150,8 @@ function Login() {
       history('/chatbox')
       // setValueInfoUser({ ...valueInfoUser, email: "", pass: "" });
     }else {
-      alert("Chua nhap gi kia cha noi !!")
+      // alert("Chua nhap gi kia cha noi !!")
+      toast.error('Please fill in all fields!!')
     }
   };
 
@@ -161,7 +164,7 @@ function Login() {
           <form action="/" method="get">
             <div className={cx("wrapper-input")}>
               <div className={cx("form-group")}>
-                <label className={cx("label")} style={{paddingRight : '35px'}}>Gmail:</label>
+                <label className={cx("label")}>Gmail:</label>
                 <input
                   ref={emailRef}
                   value={valueInfoUser.email}
@@ -204,7 +207,6 @@ function Login() {
                 )}
               </div>
             </div>
-            <p className={cx("forgot")}>Forgot password ?</p>
             <div className={cx("wrapper-btn")}>
               <button className={cx("btn")} onClick={handleLogin}>
                 Log In
@@ -232,7 +234,7 @@ function Login() {
 
         <div className={cx("footer")}>
           <span>New ?</span>
-          <Link to={"/signup"}>Sign Up with a new account</Link>
+          <Link to={"/signup"} style={{color : "blue"}}>Sign Up with a new account</Link>
         </div>
       </div>
     </div>
